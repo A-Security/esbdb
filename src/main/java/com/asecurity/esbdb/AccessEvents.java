@@ -26,7 +26,7 @@ public class AccessEvents {
      *
      * @param sourceids - some SourceIDs delimet by ',' or single SourceID
      * @param maxResult
-     * @return List - return last events from EventsLog.ApacsEvents_CHA by SourceID
+     * @return Object[][] - return last events from EventsLog.ApacsEvents_CHA by SourceID
      */
     @WebMethod(operationName = "getAccessEvents")
     public Object[][] getAccessEvents(@WebParam(name = "SourceIDs") String sourceids, @WebParam(name = "MaxResult") int maxResult){
@@ -49,7 +49,7 @@ public class AccessEvents {
 
     /**
      *
-     * @return List - return faults events from EventsLog.ApacsEvents_CHA
+     * @return Object[][] - return faults events from EventsLog.ApacsEvents_CHA
      */
     @WebMethod(operationName = "getAccessFaults")
     public Object[][] getAccessFaults () {
