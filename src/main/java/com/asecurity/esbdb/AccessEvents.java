@@ -10,6 +10,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
+import javax.jws.WebResult;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,6 +29,7 @@ public class AccessEvents {
      * @return List<ApacseventsCha> - return last events from EventsLog.ApacsEvents_CHA by SourceID
      */
     @WebMethod(operationName = "getAccessEvents")
+    @WebResult(name = "ApacseventsCha")
     public List<ApacseventsCha> getAccessEvents(@WebParam(name = "SourceIDs") String sourceids, @WebParam(name = "MaxResult") int maxResult){
         if (sourceids == null){
             return null;
