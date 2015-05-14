@@ -8,6 +8,6 @@
     <property name="hibernate.connection.username">esb</property>
     <property name="hibernate.connection.password">Aa1234567</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <mapping resource="com/asecurity/esbdb/ApacseventsCha.hbm.xml"/>
+    <mapping resource="com/asecurity/eventslogdb/ApacseventsCha.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

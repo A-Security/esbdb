@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.asecurity.esbdb;
+package com.asecurity.eventslogdb;
 
 import java.util.List;
 import javax.jws.WebService;
@@ -34,14 +34,11 @@ public class AccessEvents {
         if (sourceids == null){
             return null;
         }
+        sourceids = sourceids.replaceAll(",", "','");
         StringBuilder hqlBuilder = new StringBuilder();
         hqlBuilder.append("FROM ApacseventsCha AEC\n"); 
-        hqlBuilder.append("WHERE ");
-        String[] srcs = sourceids.split(",");
-        hqlBuilder.append("(AEC.sourceid = '").append(srcs[0]).append("')\n");
-        for (int i = 1; i < srcs.length; i++) {
-            hqlBuilder.append("OR (AEC.sourceid = '").append(srcs[i]).append("')\n");
-        }
+        hqlBuilder.append("WHERE to_date(AEC.eventtime, 'YYYY-MM-DD\"T\"HH24:MI:SS.MS') = CURRENT_DATE\n");
+        hqlBuilder.append("AND AEC.sourceid IN ('").append(sourceids).append("')\n");
         hqlBuilder.append("ORDER BY AEC.eventtime DESC");
         String hql = hqlBuilder.toString();
         return  getApacseventsCha(hql, maxResult);
@@ -56,7 +53,7 @@ public class AccessEvents {
         String hql = "FROM ApacseventsCha AEC\n" +
                      "WHERE to_date(AEC.eventtime, 'YYYY-MM-DD\"T\"HH24:MI:SS.MS') = CURRENT_DATE\n" +
                            "AND AEC.eventtype NOT LIKE 'TApcCardHolderAccess_Granted'\n" +
-                     "ORDER BY AEC.holdername, AEC.eventid";
+                     "ORDER BY AEC.holdername, AEC.eventid DESC";
         int ulimitedResult = -1;
         return getApacseventsCha(hql, ulimitedResult);
     }
@@ -68,7 +65,6 @@ public class AccessEvents {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            
             Query q = session.createQuery(hql).setMaxResults(resultCount);
             aeCha = (List<ApacseventsCha>)q.list();
         } catch (Exception e) {

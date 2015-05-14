@@ -1,4 +1,4 @@
-package com.asecurity.esbdb;
+package com.asecurity.eventslogdb;
 // Generated 23.04.2015 17:08:18 by Hibernate Tools 4.3.1
 
 import javax.xml.bind.annotation.XmlAccessType;

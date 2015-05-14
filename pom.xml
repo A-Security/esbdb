@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.asecurity</groupId>
-    <artifactId>esbdb</artifactId>
+    <artifactId>eventslogdb</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>esbdb</name>
+    <name>eventslogdb</name>
     
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
