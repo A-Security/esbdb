@@ -41,7 +41,7 @@ public class AccessEvents {
         hqlBuilder.append("AND AEC.sourceid IN ('").append(sourceids).append("')\n");
         hqlBuilder.append("ORDER BY AEC.eventtime DESC");
         String hql = hqlBuilder.toString();
-        return  getApacseventsCha(hql, maxResult);
+        return (List<ApacseventsCha>)getApacseventsCha(hql, maxResult);
     }
 
     /**
@@ -55,18 +55,39 @@ public class AccessEvents {
                            "AND AEC.eventtype NOT LIKE 'TApcCardHolderAccess_Granted'\n" +
                      "ORDER BY AEC.holdername, AEC.eventid DESC";
         int ulimitedResult = -1;
+        return (List<ApacseventsCha>)getApacseventsCha(hql, ulimitedResult);
+    }
+    
+    /**
+     *
+     * @return List - return last sourceid per holders from EventsLog.ApacsEvents_CHA
+     */
+    @WebMethod(operationName = "getCurSourceID")
+    public List<ApacseventsCha> getCurSourceID () {
+        String hql = "FROM (SELECT holderid, max(eventtime)\n" +
+                    "      FROM ApacseventsCha\n" +
+                    "	WHERE holderid IS NOT NULL\n" +
+                    "      GROUP BY holderid) AS aec1\n" +
+                    "   INNER JOIN\n" +
+                    "     (SELECT holderid, sourceid, max(eventtime)\n" +
+                    "      FROM ApacseventsCha\n" +
+                    "	WHERE to_date(eventtime, 'YYYY-MM-DD\\\"T\\\"HH24:MI:SS.MS') = CURRENT_DATE\n" +
+                    "      GROUP BY holderid, sourceid) AS aec2 \n" +
+                    "   ON aec1.holderid = aec2.holderid AND aec1.max = aec2.max\n" +
+                    "ORDER BY 1";
+        int ulimitedResult = -1;
         return getApacseventsCha(hql, ulimitedResult);
     }
     
-    private List<ApacseventsCha> getApacseventsCha (String hql, int resultCount){
-        
+    
+    private List getApacseventsCha (String hql, int resultCount){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        List<ApacseventsCha> aeCha = null;
+        List aeCha = null;
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
             Query q = session.createQuery(hql).setMaxResults(resultCount);
-            aeCha = (List<ApacseventsCha>)q.list();
+            aeCha = q.list();
         } catch (Exception e) {
             System.out.println(e.toString());
         } finally {
