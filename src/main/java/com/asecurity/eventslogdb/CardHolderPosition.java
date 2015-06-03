@@ -18,12 +18,14 @@ public class CardHolderPosition  implements java.io.Serializable {
     private String holdercompany;
     @XmlElement(name = "holderoccup")
     private String holderoccup;
+    @XmlElement(name = "holdercategory")
+    private String holdercategory;
     @XmlElement(name = "cardno")
     private String cardno;
     @XmlElement(name = "eventtime")
     private String eventtime;
-    @XmlElement(name = "zones")
-    private String zones;
+    @XmlElement(name = "sourceid")
+    private String sourceid;
 
     public CardHolderPosition() {
     }
@@ -31,14 +33,15 @@ public class CardHolderPosition  implements java.io.Serializable {
         this.holdername = holdername;
     }
     
-    public CardHolderPosition(String holdername, String holdershortname, String holdercompany, String holderoccup, String cardno, String eventtime, String zones) {
+    public CardHolderPosition(String holdername, String holdershortname, String holdercompany, String holderoccup, String holdercategory, String cardno, String eventtime, String sourceid) {
         this.holdername = holdername;
         this.holdershortname = holdershortname;
         this.holdercompany = holdercompany;
         this.holderoccup = holderoccup;
+        this.holdercategory = holdercategory;
         this.cardno = cardno;
         this.eventtime = eventtime;
-        this.zones = zones;
+        this.sourceid = sourceid;
     }
     /**
      * @return the holdername
@@ -83,10 +86,10 @@ public class CardHolderPosition  implements java.io.Serializable {
     }
 
     /**
-     * @return the zones
+     * @return the sourceid
      */
-    public String getZones() {
-        return zones;
+    public String getSourceid() {
+        return sourceid;
     }
 
     /**
@@ -132,9 +135,23 @@ public class CardHolderPosition  implements java.io.Serializable {
     }
 
     /**
-     * @param zones the zones to set
+     * @param sourceid the sourceid to set
      */
-    public void setZones(String zones) {
-        this.zones = zones;
+    public void setSourceid(String sourceid) {
+        this.sourceid = sourceid;
+    }
+
+    /**
+     * @return the holdercategory
+     */
+    public String getHoldercategory() {
+        return holdercategory;
+    }
+
+    /**
+     * @param holdercategory the holdercategory to set
+     */
+    public void setHoldercategory(String holdercategory) {
+        this.holdercategory = holdercategory;
     }
 }

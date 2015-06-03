@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 19.05.2015 20:09:55 by Hibernate Tools 4.3.1 -->
+<!-- Generated 03.06.2015 21:42:09 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.asecurity.eventslogdb.ApacseventsCha" table="apacsevents_cha" schema="public" optimistic-lock="version">
         <id name="eventid" type="string">
@@ -32,8 +32,8 @@
         <property name="sourcename" type="string">
             <column name="sourcename" />
         </property>
-        <property name="eventtime" type="string">
-            <column name="eventtime" />
+        <property name="eventtime" type="timestamp">
+            <column name="eventtime" length="35" />
         </property>
         <property name="messagexml" type="string">
             <column name="messagexml" />
@@ -41,8 +41,17 @@
         <property name="messageid" type="string">
             <column name="messageid" />
         </property>
-        <property name="messagetime" type="string">
-            <column name="messagetime" />
+        <property name="messagetime" type="timestamp">
+            <column name="messagetime" length="35" />
+        </property>
+        <property name="holdercompany" type="string">
+            <column name="holdercompany" />
+        </property>
+        <property name="holderjobtitle" type="string">
+            <column name="holderjobtitle" />
+        </property>
+        <property name="holdercategory" type="string">
+            <column name="holdercategory" />
         </property>
     </class>
 </hibernate-mapping>
